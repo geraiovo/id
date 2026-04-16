@@ -1,0 +1,2301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>geraiovo.id - Isi Pulsa & Paket Data Terpercaya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #060F0B;
+            --bg2: #0A1A13;
+            --card: #0F261D;
+            --card-hover: #143328;
+            --border: #1A3D2E;
+            --fg: #E8F5E9;
+            --fg-muted: #6B9F80;
+            --accent: #F5A623;
+            --accent-hover: #E09510;
+            --primary: #10B981;
+            --primary-dark: #059669;
+            --danger: #EF4444;
+            --success: #22C55E;
+            --info: #06B6D4;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; }
+
+        /* Animated background */
+        .bg-mesh {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(ellipse 600px 400px at 20% 20%, rgba(16,185,129,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 500px at 80% 80%, rgba(245,166,35,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 400px 300px at 50% 50%, rgba(6,182,212,0.04) 0%, transparent 70%);
+        }
+
+        .bg-grid {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none; opacity: 0.03;
+            background-image:
+                linear-gradient(rgba(16,185,129,0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16,185,129,0.5) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: fixed; border-radius: 50%; filter: blur(80px);
+            pointer-events: none; z-index: 0;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+        .orb-1 { width: 300px; height: 300px; background: rgba(16,185,129,0.12); top: 10%; left: 5%; }
+        .orb-2 { width: 250px; height: 250px; background: rgba(245,166,35,0.08); bottom: 20%; right: 10%; animation-delay: -7s; }
+        .orb-3 { width: 200px; height: 200px; background: rgba(6,182,212,0.06); top: 60%; left: 40%; animation-delay: -14s; }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -40px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(40px, 30px) scale(1.05); }
+        }
+
+        /* Page transitions */
+        .page { display: none; position: relative; z-index: 1; }
+        .page.active { display: block; animation: fadeSlideIn 0.4s ease-out; }
+
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card styles */
+        .glass-card {
+            background: linear-gradient(135deg, rgba(15,38,29,0.9), rgba(10,26,19,0.95));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(16,185,129,0.3);
+            box-shadow: 0 0 30px rgba(16,185,129,0.08);
+        }
+
+        /* Input styles */
+        .input-field {
+            background: rgba(6,15,11,0.8);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: var(--fg);
+            font-size: 15px;
+            width: 100%;
+            transition: all 0.3s ease;
+            outline: none;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .input-field:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(16,185,129,0.15);
+        }
+        .input-field::placeholder { color: var(--fg-muted); opacity: 0.6; }
+
+        /* Button styles */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16,185,129,0.3);
+        }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-primary:disabled {
+            opacity: 0.5; cursor: not-allowed; transform: none;
+            box-shadow: none;
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color: #000;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.3s ease;
+        }
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245,166,35,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: 1px solid var(--primary);
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background: rgba(16,185,129,0.1);
+        }
+
+        /* Operator badges */
+        .op-telkomsel { background: linear-gradient(135deg, #E4002B, #B8001F); }
+        .op-xl { background: linear-gradient(135deg, #0064D2, #004BA0); }
+        .op-indosat { background: linear-gradient(135deg, #FFD700, #E6C200); color: #000; }
+        .op-tri { background: linear-gradient(135deg, #E4002B, #990000); }
+        .op-smartfren { background: linear-gradient(135deg, #FF0000, #CC0000); }
+        .op-unknown { background: linear-gradient(135deg, #6B7280, #4B5563); }
+
+        /* Nominal card */
+        .nominal-card {
+            background: rgba(6,15,11,0.6);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+        }
+        .nominal-card:hover {
+            border-color: rgba(16,185,129,0.4);
+            background: rgba(16,185,129,0.05);
+        }
+        .nominal-card.selected {
+            border-color: var(--primary);
+            background: rgba(16,185,129,0.1);
+            box-shadow: 0 0 20px rgba(16,185,129,0.15);
+        }
+        .nominal-card.selected .nominal-price { color: var(--accent); }
+
+        /* Tab active */
+        .tab-btn { transition: all 0.3s ease; position: relative; }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute; bottom: -2px; left: 20%; width: 60%; height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed; top: 20px; right: 20px; z-index: 9999;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .toast {
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex; align-items: center; gap: 10px;
+            animation: toastIn 0.4s ease-out;
+            backdrop-filter: blur(12px);
+            min-width: 280px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+        .toast.success { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: #86EFAC; }
+        .toast.error { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #FCA5A5; }
+        .toast.info { background: rgba(6,182,212,0.15); border: 1px solid rgba(6,182,212,0.3); color: #67E8F9; }
+        .toast.leaving { animation: toastOut 0.3s ease-in forwards; }
+
+        @keyframes toastIn { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes toastOut { to { opacity: 0; transform: translateX(60px); } }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            z-index: 1000; display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .modal-overlay.show { display: flex; animation: fadeSlideIn 0.3s ease; }
+        .modal-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 440px; width: 90%;
+            max-height: 90vh; overflow-y: auto;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--fg-muted); }
+
+        /* Spinner */
+        .spinner {
+            width: 20px; height: 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Pulse animation for status */
+        .pulse-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        /* Stat card hover */
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Hero text gradient */
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Service icon glow */
+        .service-icon {
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover .service-icon {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 12px rgba(16,185,129,0.4));
+        }
+
+        /* Navbar blur */
+        .navbar {
+            background: rgba(6,15,11,0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Table styles */
+        .data-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+        .data-table th {
+            background: rgba(16,185,129,0.08);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--fg-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .data-table th:first-child { border-radius: 10px 0 0 10px; }
+        .data-table th:last-child { border-radius: 0 10px 10px 0; }
+        .data-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(26,61,46,0.4);
+            font-size: 14px;
+        }
+        .data-table tr:hover td { background: rgba(16,185,129,0.03); }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.open { transform: translateX(0); }
+
+        /* Badge */
+        .badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 4px 10px; border-radius: 20px;
+            font-size: 12px; font-weight: 600;
+        }
+
+        /* Promo banner slide */
+        .promo-track {
+            display: flex;
+            animation: promoSlide 25s linear infinite;
+        }
+        @keyframes promoSlide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem !important; }
+            .nominal-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background effects -->
+    <div class="bg-mesh"></div>
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Toast container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--primary), var(--accent));">
+                        <i class="fas fa-bolt text-black text-lg"></i>
+                    </div>
+                    <span class="text-xl font-bold" style="font-family: 'Space Grotesk', sans-serif;">
+                        GERAIOVO<span style="color: var(--accent);">.ID</span>
+                    </span>
+                </div>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-1">
+                    <button class="tab-btn active px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5" data-page="home" onclick="navigateTo('home')">
+                        <i class="fas fa-home mr-1.5"></i>Beranda
+                    </button>
+                    <button class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5" data-page="transaksi" onclick="navigateTo('transaksi')">
+                        <i class="fas fa-exchange-alt mr-1.5"></i>Transaksi
+                    </button>
+                    <button class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 auth-only" data-page="dashboard" onclick="navigateTo('dashboard')" style="display:none;">
+                        <i class="fas fa-tachometer-alt mr-1.5"></i>Dashboard
+                    </button>
+                    <button class="tab-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 admin-only" data-page="admin" onclick="navigateTo('admin')" style="display:none;">
+                        <i class="fas fa-cog mr-1.5"></i>Admin
+                    </button>
+                </div>
+
+                <!-- Right side -->
+                <div class="hidden md:flex items-center gap-3">
+                    <div id="navBalance" class="auth-only items-center gap-2 px-3 py-1.5 rounded-lg text-sm" style="display:none; background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.2); color: var(--accent);">
+                        <i class="fas fa-wallet"></i>
+                        <span id="navBalanceAmt">Rp 0</span>
+                    </div>
+                    <div id="navGuest">
+                        <button class="btn-outline text-sm py-2 px-4" onclick="navigateTo('login')">Masuk</button>
+                    </div>
+                    <div id="navUser" class="auth-only items-center gap-3" style="display:none;">
+                        <span class="text-sm text-gray-400"><i class="fas fa-user-circle mr-1"></i><span id="navUsername"></span></span>
+                        <button class="btn-outline text-sm py-2 px-4" onclick="logout()" style="border-color: var(--danger); color: var(--danger);">Keluar</button>
+                    </div>
+                </div>
+
+                <!-- Mobile burger -->
+                <button class="md:hidden text-gray-300 text-xl" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu fixed top-0 right-0 bottom-0 w-72 z-50" style="background: var(--card); border-left: 1px solid var(--border);" id="mobileMenu">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <span class="text-lg font-bold" style="font-family: 'Space Grotesk';">Menu</span>
+                <button onclick="toggleMobileMenu()" class="text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="flex flex-col gap-2" id="mobileNavLinks">
+                <button class="text-left px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5" onclick="navigateTo('home');toggleMobileMenu()">
+                    <i class="fas fa-home mr-3 w-5"></i>Beranda
+                </button>
+                <button class="text-left px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5" onclick="navigateTo('transaksi');toggleMobileMenu()">
+                    <i class="fas fa-exchange-alt mr-3 w-5"></i>Transaksi
+                </button>
+                <button class="text-left px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 auth-only" onclick="navigateTo('dashboard');toggleMobileMenu()" style="display:none;" data-mobile-auth>
+                    <i class="fas fa-tachometer-alt mr-3 w-5"></i>Dashboard
+                </button>
+                <button class="text-left px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 admin-only" onclick="navigateTo('admin');toggleMobileMenu()" style="display:none;" data-mobile-admin>
+                    <i class="fas fa-cog mr-3 w-5"></i>Admin Panel
+                </button>
+                <hr class="border-gray-700 my-3">
+                <button class="text-left px-4 py-3 rounded-lg text-gray-300 hover:bg-white/5 guest-only" onclick="navigateTo('login');toggleMobileMenu()" data-mobile-guest>
+                    <i class="fas fa-sign-in-alt mr-3 w-5"></i>Masuk
+                </button>
+                <button class="text-left px-4 py-3 rounded-lg hover:bg-white/5 auth-only" onclick="logout();toggleMobileMenu()" style="display:none; color: var(--danger);" data-mobile-auth>
+                    <i class="fas fa-sign-out-alt mr-3 w-5"></i>Keluar
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="fixed inset-0 bg-black/50 z-40 hidden" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+
+    <!-- ==================== HALAMAN BERANDA ==================== -->
+    <div class="page active" id="page-home">
+        <!-- Hero Section -->
+        <section class="pt-28 pb-16 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-6" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: var(--primary);">
+                            <span class="pulse-dot" style="background: var(--primary);"></span>
+                            Layanan 24 Jam Non-Stop
+                        </div>
+                        <h1 class="hero-title text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6" style="font-family: 'Space Grotesk', sans-serif;">
+                            Isi Pulsa &<br><span class="text-gradient">Paket Data</span><br>Lebih Cepat
+                        </h1>
+                        <p class="text-lg mb-8" style="color: var(--fg-muted); max-width: 480px;">
+                            Transaksi instan, harga kompetitif, dan didukung oleh server yang stabil. Nikmati pengalaman isi ulang pulsa tanpa ribet.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <button class="btn-primary text-base px-8 py-4" onclick="navigateTo('transaksi')">
+                                <i class="fas fa-bolt mr-2"></i>Mulai Transaksi
+                            </button>
+                            <button class="btn-outline text-base px-8 py-4" onclick="navigateTo('register')">
+                                Daftar Gratis
+                            </button>
+                        </div>
+                        <!-- Stats kecil -->
+                        <div class="flex gap-8 mt-10">
+                            <div>
+                                <div class="text-2xl font-bold" style="color: var(--primary);">50K+</div>
+                                <div class="text-xs" style="color: var(--fg-muted);">Transaksi/Bulan</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold" style="color: var(--accent);">3 Detik</div>
+                                <div class="text-xs" style="color: var(--fg-muted);">Proses Cepat</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold" style="color: var(--info);">99.9%</div>
+                                <div class="text-xs" style="color: var(--fg-muted);">Uptime Server</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero visual -->
+                    <div class="hidden lg:flex justify-center">
+                        <div class="relative">
+                            <div class="w-80 h-80 rounded-3xl flex items-center justify-center" style="background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(245,166,35,0.05)); border: 1px solid var(--border);">
+                                <div class="text-center">
+                                    <i class="fas fa-mobile-alt text-7xl mb-4" style="color: var(--primary);"></i>
+                                    <div class="text-sm" style="color: var(--fg-muted);">Cukup 3 langkah mudah</div>
+                                </div>
+                            </div>
+                            <!-- Floating cards -->
+                            <div class="absolute -top-6 -right-6 glass-card px-4 py-3 flex items-center gap-3" style="animation: orbFloat 6s ease-in-out infinite;">
+                                <div class="w-10 h-10 rounded-lg op-telkomsel flex items-center justify-center">
+                                    <i class="fas fa-signal text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs" style="color: var(--fg-muted);">Telkomsel</div>
+                                    <div class="text-sm font-semibold">Rp 25.000</div>
+                                </div>
+                            </div>
+                            <div class="absolute -bottom-4 -left-8 glass-card px-4 py-3 flex items-center gap-3" style="animation: orbFloat 8s ease-in-out infinite; animation-delay: -3s;">
+                                <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: rgba(34,197,94,0.2);">
+                                    <i class="fas fa-check-circle text-green-400 text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs" style="color: var(--fg-muted);">Status</div>
+                                    <div class="text-sm font-semibold" style="color: var(--success);">Berhasil</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Promo Banner Scroll -->
+        <section class="py-6 overflow-hidden" style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+            <div class="promo-track">
+                <div class="flex gap-6 px-3">
+                    <div class="flex items-center gap-3 px-6 py-3 rounded-full whitespace-nowrap" style="background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.15);">
+                        <i class="fas fa-fire" style="color: var(--accent);"></i>
+                        <span class="text-sm font-medium">Pulsa Telkomsel mulai <strong style="color: var(--accent);">Rp 5.200</strong></span>
+                    </div>
+                    <div class="flex items-center gap-3 px-6 py-3 rounded-full whitespace-nowrap" style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.15);">
+                        <i class="fas fa-gift" style="color: var(--primary);"></i>
+                        <span class="text-sm font-medium">Cashback <strong style="color: var(--primary);">5%</strong> semua operator</span>
+                    </div>
+                    <div class="flex items-center gap-3 px-6 py-3 rounded-full whitespace-nowrap" style="background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.15);">
+                        <i class="fas fa-bolt" style="color: var(--info);"></i>
+                        <span class="text-sm font-medium">Paket Data 1GB cuma <strong style="color: var(--info);">Rp 8.000</strong></span>
+                    </div>
+                    <div class="flex items-center gap-3 px-6 py-3 rounded-full whitespace-nowrap" style="background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.15);">
+                        <i class="fas fa-tag" style="color: var(--danger);"></i>
+                        <span class="text-sm font-medium">Token Listrik <strong style="color: var(--danger);">diskon Rp 2.000</strong></span>
+                    </div>
+                    <div class="flex items-center gap-3 px-6 py-3 rounded-full whitespace-nowrap" style="background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.15);">
+                        <i class="fas fa-fire" style="color: var(--accent);"></i>
+                        <span class="text-sm font-medium">Pulsa Telkomsel mulai <strong style="color: var(--accent);">Rp 5.200</strong></span>
+                    </div>
+                    <div class="flex items-center gap-3 px-6 py-3 rounded-full whitespace-nowrap" style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.15);">
+                        <i class="fas fa-gift" style="color: var(--primary);"></i>
+                        <span class="text-sm font-medium">Cashback <strong style="color: var(--primary);">5%</strong> semua operator</span>
+                    </div>
+                    <div class="flex items-center gap-3 px-6 py-3 rounded-full whitespace-nowrap" style="background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.15);">
+                        <i class="fas fa-bolt" style="color: var(--info);"></i>
+                        <span class="text-sm font-medium">Paket Data 1GB cuma <strong style="color: var(--info);">Rp 8.000</strong></span>
+                    </div>
+                    <div class="flex items-center gap-3 px-6 py-3 rounded-full whitespace-nowrap" style="background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.15);">
+                        <i class="fas fa-tag" style="color: var(--danger);"></i>
+                        <span class="text-sm font-medium">Token Listrik <strong style="color: var(--danger);">diskon Rp 2.000</strong></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Layanan -->
+        <section class="py-20 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-14">
+                    <h2 class="text-3xl sm:text-4xl font-bold mb-4" style="font-family: 'Space Grotesk';">Layanan Kami</h2>
+                    <p style="color: var(--fg-muted); max-width: 500px; margin: 0 auto;">Berbagai layanan pengisian ulang dalam satu platform terintegrasi</p>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass-card p-6 cursor-pointer" onclick="navigateTo('transaksi')">
+                        <div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-4" style="background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(16,185,129,0.05));">
+                            <i class="fas fa-mobile-alt text-2xl" style="color: var(--primary);"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Pulsa Reguler</h3>
+                        <p class="text-sm" style="color: var(--fg-muted);">Isi ulang pulsa semua operator dengan harga bersaing dan proses instan.</p>
+                    </div>
+                    <div class="glass-card p-6 cursor-pointer" onclick="navigateTo('transaksi')">
+                        <div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-4" style="background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(6,182,212,0.05));">
+                            <i class="fas fa-wifi text-2xl" style="color: var(--info);"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Paket Data</h3>
+                        <p class="text-sm" style="color: var(--fg-muted);">Paket internet harian, mingguan, hingga bulanan untuk semua kebutuhan.</p>
+                    </div>
+                    <div class="glass-card p-6 cursor-pointer" onclick="navigateTo('transaksi')">
+                        <div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-4" style="background: linear-gradient(135deg, rgba(245,166,35,0.2), rgba(245,166,35,0.05));">
+                            <i class="fas fa-bolt text-2xl" style="color: var(--accent);"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Token Listrik</h3>
+                        <p class="text-sm" style="color: var(--fg-muted);">Beli token PLN prabayar kapan saja, langsung terbit via SMS.</p>
+                    </div>
+                    <div class="glass-card p-6 cursor-pointer" onclick="navigateTo('transaksi')">
+                        <div class="service-icon w-14 h-14 rounded-2xl flex items-center justify-center mb-4" style="background: linear-gradient(135deg, rgba(239,68,68,0.2), rgba(239,68,68,0.05));">
+                            <i class="fas fa-gamepad text-2xl" style="color: var(--danger);"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Voucher Game</h3>
+                        <p class="text-sm" style="color: var(--fg-muted);">Top up diamonds Mobile Legends, Free Fire, dan game populer lainnya.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Keunggulan -->
+        <section class="py-20 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="glass-card p-8 sm:p-12" style="background: linear-gradient(135deg, rgba(16,185,129,0.05), rgba(245,166,35,0.03));">
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(16,185,129,0.15);">
+                                <i class="fas fa-rocket" style="color: var(--primary);"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Proses Kilat</h4>
+                                <p class="text-sm" style="color: var(--fg-muted);">Transaksi diproses dalam hitungan detik, 24/7 tanpa gangguan.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(245,166,35,0.15);">
+                                <i class="fas fa-shield-alt" style="color: var(--accent);"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Aman & Terpercaya</h4>
+                                <p class="text-sm" style="color: var(--fg-muted);">Sistem keamanan berlapis dengan enkripsi data end-to-end.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(6,182,212,0.15);">
+                                <i class="fas fa-wallet" style="color: var(--info);"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-1">Harga Murah</h4>
+                                <p class="text-sm" style="color: var(--fg-muted);">Harga langsung dari supplier tanpa markup berlebihan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-10 px-4" style="border-top: 1px solid var(--border);">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, var(--primary), var(--accent));">
+                        <i class="fas fa-bolt text-black text-sm"></i>
+                    </div>
+                    <span class="font-bold" style="font-family: 'Space Grotesk';">geraiovo.id</span>
+                </div>
+                <p class="text-sm" style="color: var(--fg-muted);">&copy; 2025 geraiovo.id. Semua hak dilindungi.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ==================== HALAMAN TRANSAKSI ==================== -->
+    <div class="page" id="page-transaksi">
+        <section class="pt-24 pb-20 px-4">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-10">
+                    <h1 class="text-3xl sm:text-4xl font-bold mb-3" style="font-family: 'Space Grotesk';">Transaksi</h1>
+                    <p style="color: var(--fg-muted);">Pilih layanan dan lakukan pengisian ulang dengan mudah</p>
+                </div>
+
+                <!-- Tab Layanan -->
+                <div class="flex gap-2 mb-8 overflow-x-auto pb-2">
+                    <button class="service-tab px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition" style="background: var(--primary); color: #000;" data-service="pulsa" onclick="switchService('pulsa')">
+                        <i class="fas fa-mobile-alt mr-1.5"></i>Pulsa
+                    </button>
+                    <button class="service-tab px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition" style="background: rgba(255,255,255,0.05); color: var(--fg-muted);" data-service="data" onclick="switchService('data')">
+                        <i class="fas fa-wifi mr-1.5"></i>Paket Data
+                    </button>
+                    <button class="service-tab px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition" style="background: rgba(255,255,255,0.05); color: var(--fg-muted);" data-service="listrik" onclick="switchService('listrik')">
+                        <i class="fas fa-bolt mr-1.5"></i>Token Listrik
+                    </button>
+                </div>
+
+                <div class="glass-card p-6 sm:p-8">
+                    <!-- Input Nomor -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium mb-2" style="color: var(--fg-muted);" id="labelNomor">Nomor Handphone</label>
+                        <div class="relative">
+                            <i class="fas fa-phone absolute left-4 top-1/2 -translate-y-1/2" style="color: var(--fg-muted);"></i>
+                            <input type="tel" id="inputNomor" class="input-field pl-11 pr-32" placeholder="08xx xxxx xxxx" maxlength="15" oninput="detectOperator()">
+                            <div id="operatorBadge" class="absolute right-3 top-1/2 -translate-y-1/2 px-3 py-1 rounded-lg text-xs font-bold hidden" style="color: #fff;">
+                                -
+                            </div>
+                        </div>
+                        <p id="operatorInfo" class="text-xs mt-2 hidden" style="color: var(--fg-muted);"></p>
+                    </div>
+
+                    <!-- Daftar Nominal -->
+                    <div id="nominalContainer">
+                        <label class="block text-sm font-medium mb-3" style="color: var(--fg-muted);">Pilih Nominal</label>
+                        <div class="nominal-grid grid grid-cols-3 gap-3" id="nominalGrid">
+                            <!-- Diisi oleh JS -->
+                        </div>
+                    </div>
+
+                    <!-- Ringkasan & Bayar -->
+                    <div class="mt-8 pt-6" style="border-top: 1px solid var(--border);">
+                        <div class="flex justify-between items-center mb-2">
+                            <span style="color: var(--fg-muted);">Layanan</span>
+                            <span class="font-medium" id="summaryService">Pulsa Reguler</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span style="color: var(--fg-muted);">Nomor Tujuan</span>
+                            <span class="font-medium" id="summaryNumber">-</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span style="color: var(--fg-muted);">Operator</span>
+                            <span class="font-medium" id="summaryOperator">-</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span style="color: var(--fg-muted);">Nominal</span>
+                            <span class="font-medium" id="summaryNominal">-</span>
+                        </div>
+                        <div class="flex justify-between items-center text-lg font-bold mb-6 pt-4" style="border-top: 1px dashed var(--border);">
+                            <span>Total Bayar</span>
+                            <span style="color: var(--accent);" id="summaryTotal">Rp 0</span>
+                        </div>
+                        <button class="btn-accent w-full text-base py-4" id="btnBeli" onclick="prosesTransaksi()" disabled>
+                            <i class="fas fa-shopping-cart mr-2"></i>Beli Sekarang
+                        </button>
+                        <p class="text-xs text-center mt-3" style="color: var(--fg-muted);">Pastikan nomor tujuan sudah benar sebelum melakukan pembayaran</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== HALAMAN LOGIN ==================== -->
+    <div class="page" id="page-login">
+        <section class="pt-28 pb-20 px-4 flex items-center justify-center" style="min-height: 100vh;">
+            <div class="w-full max-w-md">
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background: linear-gradient(135deg, var(--primary), var(--accent));">
+                        <i class="fas fa-user-lock text-black text-2xl"></i>
+                    </div>
+                    <h1 class="text-3xl font-bold mb-2" style="font-family: 'Space Grotesk';">Masuk</h1>
+                    <p style="color: var(--fg-muted);">Masuk ke akun untuk mulai transaksi</p>
+                </div>
+                <div class="glass-card p-8">
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium mb-2" style="color: var(--fg-muted);">Username</label>
+                        <div class="relative">
+                            <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2" style="color: var(--fg-muted);"></i>
+                            <input type="text" id="loginUsername" class="input-field pl-11" placeholder="Masukkan username">
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium mb-2" style="color: var(--fg-muted);">Password</label>
+                        <div class="relative">
+                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2" style="color: var(--fg-muted);"></i>
+                            <input type="password" id="loginPassword" class="input-field pl-11 pr-11" placeholder="Masukkan password">
+                            <button class="absolute right-4 top-1/2 -translate-y-1/2" style="color: var(--fg-muted);" onclick="togglePassword('loginPassword', this)" aria-label="Toggle password visibility">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="btn-primary w-full py-4" onclick="login()">
+                        <i class="fas fa-sign-in-alt mr-2"></i>Masuk
+                    </button>
+                    <p class="text-center mt-5 text-sm" style="color: var(--fg-muted);">
+                        Belum punya akun? <a href="#" class="font-semibold" style="color: var(--primary);" onclick="navigateTo('register')">Daftar di sini</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== HALAMAN REGISTER ==================== -->
+    <div class="page" id="page-register">
+        <section class="pt-28 pb-20 px-4 flex items-center justify-center" style="min-height: 100vh;">
+            <div class="w-full max-w-md">
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background: linear-gradient(135deg, var(--primary), var(--accent));">
+                        <i class="fas fa-user-plus text-black text-2xl"></i>
+                    </div>
+                    <h1 class="text-3xl font-bold mb-2" style="font-family: 'Space Grotesk';">Daftar Akun</h1>
+                    <p style="color: var(--fg-muted);">Buat akun baru untuk mulai bertransaksi</p>
+                </div>
+                <div class="glass-card p-8">
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium mb-2" style="color: var(--fg-muted);">Nama Lengkap</label>
+                        <div class="relative">
+                            <i class="fas fa-id-card absolute left-4 top-1/2 -translate-y-1/2" style="color: var(--fg-muted);"></i>
+                            <input type="text" id="regName" class="input-field pl-11" placeholder="Masukkan nama lengkap">
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium mb-2" style="color: var(--fg-muted);">Username</label>
+                        <div class="relative">
+                            <i class="fas fa-user absolute left-4 top-1/2 -translate-y-1/2" style="color: var(--fg-muted);"></i>
+                            <input type="text" id="regUsername" class="input-field pl-11" placeholder="Pilih username">
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium mb-2" style="color: var(--fg-muted);">Nomor HP</label>
+                        <div class="relative">
+                            <i class="fas fa-phone absolute left-4 top-1/2 -translate-y-1/2" style="color: var(--fg-muted);"></i>
+                            <input type="tel" id="regPhone" class="input-field pl-11" placeholder="08xxxxxxxxxx" maxlength="15">
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-sm font-medium mb-2" style="color: var(--fg-muted);">Password</label>
+                        <div class="relative">
+                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2" style="color: var(--fg-muted);"></i>
+                            <input type="password" id="regPassword" class="input-field pl-11 pr-11" placeholder="Minimal 6 karakter">
+                            <button class="absolute right-4 top-1/2 -translate-y-1/2" style="color: var(--fg-muted);" onclick="togglePassword('regPassword', this)" aria-label="Toggle password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium mb-2" style="color: var(--fg-muted);">Konfirmasi Password</label>
+                        <div class="relative">
+                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2" style="color: var(--fg-muted);"></i>
+                            <input type="password" id="regConfirm" class="input-field pl-11" placeholder="Ulangi password">
+                        </div>
+                    </div>
+                    <button class="btn-primary w-full py-4" onclick="register()">
+                        <i class="fas fa-user-plus mr-2"></i>Daftar
+                    </button>
+                    <p class="text-center mt-5 text-sm" style="color: var(--fg-muted);">
+                        Sudah punya akun? <a href="#" class="font-semibold" style="color: var(--primary);" onclick="navigateTo('login')">Masuk di sini</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== HALAMAN DASHBOARD ==================== -->
+    <div class="page" id="page-dashboard">
+        <section class="pt-24 pb-20 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                    <div>
+                        <h1 class="text-3xl font-bold mb-1" style="font-family: 'Space Grotesk';">Dashboard</h1>
+                        <p style="color: var(--fg-muted);">Selamat datang kembali, <span id="dashGreeting" class="font-semibold" style="color: var(--fg);"></span></p>
+                    </div>
+                    <button class="btn-accent py-3 px-6" onclick="showTopUpModal()">
+                        <i class="fas fa-plus mr-2"></i>Top Up Saldo
+                    </button>
+                </div>
+
+                <!-- Stat Cards -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="glass-card stat-card p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm" style="color: var(--fg-muted);">Saldo</span>
+                            <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background: rgba(245,166,35,0.15);">
+                                <i class="fas fa-wallet" style="color: var(--accent);"></i>
+                            </div>
+                        </div>
+                        <div class="text-2xl font-bold" id="dashSaldo" style="color: var(--accent);">Rp 0</div>
+                    </div>
+                    <div class="glass-card stat-card p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm" style="color: var(--fg-muted);">Total Transaksi</span>
+                            <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background: rgba(16,185,129,0.15);">
+                                <i class="fas fa-receipt" style="color: var(--primary);"></i>
+                            </div>
+                        </div>
+                        <div class="text-2xl font-bold" id="dashTotalTx">0</div>
+                    </div>
+                    <div class="glass-card stat-card p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm" style="color: var(--fg-muted);">Berhasil</span>
+                            <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background: rgba(34,197,94,0.15);">
+                                <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            </div>
+                        </div>
+                        <div class="text-2xl font-bold" id="dashSukses" style="color: var(--success);">0</div>
+                    </div>
+                    <div class="glass-card stat-card p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm" style="color: var(--fg-muted);">Gagal</span>
+                            <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background: rgba(239,68,68,0.15);">
+                                <i class="fas fa-times-circle" style="color: var(--danger);"></i>
+                            </div>
+                        </div>
+                        <div class="text-2xl font-bold" id="dashGagal" style="color: var(--danger);">0</div>
+                    </div>
+                </div>
+
+                <!-- Riwayat Transaksi -->
+                <div class="glass-card p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold" style="font-family: 'Space Grotesk';">Riwayat Transaksi</h2>
+                        <div class="flex gap-2">
+                            <select id="dashFilter" class="input-field py-2 px-3 text-sm" style="width: auto;" onchange="renderDashboardHistory()">
+                                <option value="all">Semua</option>
+                                <option value="sukses">Berhasil</option>
+                                <option value="gagal">Gagal</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Layanan</th>
+                                    <th>Nomor Tujuan</th>
+                                    <th>Nominal</th>
+                                    <th>Harga</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashHistoryBody">
+                                <tr><td colspan="6" class="text-center py-8" style="color: var(--fg-muted);">Belum ada transaksi</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== HALAMAN ADMIN ==================== -->
+    <div class="page" id="page-admin">
+        <section class="pt-24 pb-20 px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold mb-1" style="font-family: 'Space Grotesk';">Admin Panel</h1>
+                    <p style="color: var(--fg-muted);">Kelola seluruh sistem dari satu tempat</p>
+                </div>
+
+                <!-- Admin Stats -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="glass-card stat-card p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm" style="color: var(--fg-muted);">Total User</span>
+                            <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background: rgba(6,182,212,0.15);">
+                                <i class="fas fa-users" style="color: var(--info);"></i>
+                            </div>
+                        </div>
+                        <div class="text-2xl font-bold" id="adminTotalUser" style="color: var(--info);">0</div>
+                    </div>
+                    <div class="glass-card stat-card p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm" style="color: var(--fg-muted);">Total Transaksi</span>
+                            <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background: rgba(16,185,129,0.15);">
+                                <i class="fas fa-receipt" style="color: var(--primary);"></i>
+                            </div>
+                        </div>
+                        <div class="text-2xl font-bold" id="adminTotalTx">0</div>
+                    </div>
+                    <div class="glass-card stat-card p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm" style="color: var(--fg-muted);">Pendapatan</span>
+                            <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background: rgba(245,166,35,0.15);">
+                                <i class="fas fa-coins" style="color: var(--accent);"></i>
+                            </div>
+                        </div>
+                        <div class="text-2xl font-bold" id="adminRevenue" style="color: var(--accent);">Rp 0</div>
+                    </div>
+                    <div class="glass-card stat-card p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm" style="color: var(--fg-muted);">Success Rate</span>
+                            <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background: rgba(34,197,94,0.15);">
+                                <i class="fas fa-chart-line" style="color: var(--success);"></i>
+                            </div>
+                        </div>
+                        <div class="text-2xl font-bold" id="adminSuccessRate" style="color: var(--success);">0%</div>
+                    </div>
+                </div>
+
+                <!-- Admin Tabs -->
+                <div class="flex gap-2 mb-6 overflow-x-auto pb-2">
+                    <button class="admin-tab px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition" style="background: var(--primary); color: #000;" data-atab="transactions" onclick="switchAdminTab('transactions')">
+                        <i class="fas fa-list mr-1.5"></i>Semua Transaksi
+                    </button>
+                    <button class="admin-tab px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition" style="background: rgba(255,255,255,0.05); color: var(--fg-muted);" data-atab="users" onclick="switchAdminTab('users')">
+                        <i class="fas fa-users mr-1.5"></i>Kelola User
+                    </button>
+                    <button class="admin-tab px-5 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition" style="background: rgba(255,255,255,0.05); color: var(--fg-muted);" data-atab="pricing" onclick="switchAdminTab('pricing')">
+                        <i class="fas fa-tags mr-1.5"></i>Kelola Harga
+                    </button>
+                </div>
+
+                <!-- Tab: Semua Transaksi -->
+                <div class="admin-panel glass-card p-6" id="adminPanel-transactions">
+                    <h2 class="text-xl font-bold mb-4" style="font-family: 'Space Grotesk';">Semua Transaksi</h2>
+                    <div class="overflow-x-auto">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User</th>
+                                    <th>Tanggal</th>
+                                    <th>Layanan</th>
+                                    <th>Nomor</th>
+                                    <th>Nominal</th>
+                                    <th>Harga</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminTxBody">
+                                <tr><td colspan="9" class="text-center py-8" style="color: var(--fg-muted);">Belum ada transaksi</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab: Kelola User -->
+                <div class="admin-panel glass-card p-6 hidden" id="adminPanel-users">
+                    <h2 class="text-xl font-bold mb-4" style="font-family: 'Space Grotesk';">Daftar User</h2>
+                    <div class="overflow-x-auto">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Nama</th>
+                                    <th>No. HP</th>
+                                    <th>Saldo</th>
+                                    <th>Role</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminUserBody">
+                                <tr><td colspan="6" class="text-center py-8" style="color: var(--fg-muted);">Tidak ada user</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab: Kelola Harga -->
+                <div class="admin-panel glass-card p-6 hidden" id="adminPanel-pricing">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold" style="font-family: 'Space Grotesk';">Kelola Harga Pulsa</h2>
+                        <select id="priceOperator" class="input-field py-2 px-3 text-sm" style="width: auto;" onchange="renderPricingTable()">
+                            <option value="Telkomsel">Telkomsel</option>
+                            <option value="XL">XL</option>
+                            <option value="Indosat">Indosat</option>
+                            <option value="Tri">Tri</option>
+                            <option value="Smartfren">Smartfren</option>
+                        </select>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nominal</th>
+                                    <th>Harga Jual</th>
+                                    <th>Harga Modal</th>
+                                    <th>Margin</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminPriceBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== MODAL PEMBAYARAN ==================== -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-box">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold" style="font-family: 'Space Grotesk';">Pembayaran</h3>
+                <button onclick="closeModal('paymentModal')" class="text-gray-400 hover:text-white"><i class="fas fa-times text-lg"></i></button>
+            </div>
+            <div id="paymentContent">
+                <!-- Diisi oleh JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL TOP UP SALDO ==================== -->
+    <div class="modal-overlay" id="topUpModal">
+        <div class="modal-box">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold" style="font-family: 'Space Grotesk';">Top Up Saldo</h3>
+                <button onclick="closeModal('topUpModal')" class="text-gray-400 hover:text-white"><i class="fas fa-times text-lg"></i></button>
+            </div>
+            <p class="text-sm mb-4" style="color: var(--fg-muted);">Saldo saat ini: <strong id="topUpCurrent" style="color: var(--accent);">Rp 0</strong></p>
+            <label class="block text-sm font-medium mb-2" style="color: var(--fg-muted);">Jumlah Top Up</label>
+            <input type="number" id="topUpAmount" class="input-field mb-4" placeholder="Minimal Rp 10.000" min="10000">
+            <div class="flex gap-2 mb-6 flex-wrap">
+                <button class="px-4 py-2 rounded-lg text-sm font-medium" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: var(--primary);" onclick="document.getElementById('topUpAmount').value=50000">50rb</button>
+                <button class="px-4 py-2 rounded-lg text-sm font-medium" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: var(--primary);" onclick="document.getElementById('topUpAmount').value=100000">100rb</button>
+                <button class="px-4 py-2 rounded-lg text-sm font-medium" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: var(--primary);" onclick="document.getElementById('topUpAmount').value=200000">200rb</button>
+                <button class="px-4 py-2 rounded-lg text-sm font-medium" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); color: var(--primary);" onclick="document.getElementById('topUpAmount').value=500000">500rb</button>
+            </div>
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-3" style="color: var(--fg-muted);">Metode Pembayaran</label>
+                <div class="grid grid-cols-3 gap-2" id="topUpMethods">
+                    <div class="topup-method nominal-card selected" data-method="bca" onclick="selectTopUpMethod(this)">
+                        <div class="text-xs font-bold" style="color: var(--info);">BCA</div>
+                        <div class="text-xs" style="color: var(--fg-muted);">VA</div>
+                    </div>
+                    <div class="topup-method nominal-card" data-method="bri" onclick="selectTopUpMethod(this)">
+                        <div class="text-xs font-bold" style="color: var(--info);">BRI</div>
+                        <div class="text-xs" style="color: var(--fg-muted);">VA</div>
+                    </div>
+                    <div class="topup-method nominal-card" data-method="mandiri" onclick="selectTopUpMethod(this)">
+                        <div class="text-xs font-bold" style="color: var(--info);">Mandiri</div>
+                        <div class="text-xs" style="color: var(--fg-muted);">VA</div>
+                    </div>
+                    <div class="topup-method nominal-card" data-method="ovo" onclick="selectTopUpMethod(this)">
+                        <div class="text-xs font-bold" style="color: var(--primary);">OVO</div>
+                        <div class="text-xs" style="color: var(--fg-muted);">E-Wallet</div>
+                    </div>
+                    <div class="topup-method nominal-card" data-method="dana" onclick="selectTopUpMethod(this)">
+                        <div class="text-xs font-bold" style="color: var(--primary);">DANA</div>
+                        <div class="text-xs" style="color: var(--fg-muted);">E-Wallet</div>
+                    </div>
+                    <div class="topup-method nominal-card" data-method="gopay" onclick="selectTopUpMethod(this)">
+                        <div class="text-xs font-bold" style="color: var(--primary);">GoPay</div>
+                        <div class="text-xs" style="color: var(--fg-muted);">E-Wallet</div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-primary w-full py-4" onclick="prosesTopUp()">
+                <i class="fas fa-credit-card mr-2"></i>Proses Top Up
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL EDIT HARGA ==================== -->
+    <div class="modal-overlay" id="editPriceModal">
+        <div class="modal-box">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold" style="font-family: 'Space Grotesk';">Edit Harga</h3>
+                <button onclick="closeModal('editPriceModal')" class="text-gray-400 hover:text-white"><i class="fas fa-times text-lg"></i></button>
+            </div>
+            <div id="editPriceContent"></div>
+        </div>
+    </div>
+
+    <script>
+    // =====================================================
+    // DATA & STATE
+    // =====================================================
+
+    // Database harga per operator (simulasi)
+    const defaultPricing = {
+        Telkomsel: {
+            pulsa: [
+                { nominal: '5.000', price: 5200, modal: 5000 },
+                { nominal: '10.000', price: 10200, modal: 9900 },
+                { nominal: '15.000', price: 15200, modal: 14800 },
+                { nominal: '25.000', price: 25200, modal: 24700 },
+                { nominal: '50.000', price: 49800, modal: 49200 },
+                { nominal: '100.000', price: 99200, modal: 98500 },
+            ],
+            data: [
+                { nominal: '1GB / 30hr', price: 15000, modal: 14000 },
+                { nominal: '2GB / 30hr', price: 25000, modal: 23500 },
+                { nominal: '5GB / 30hr', price: 45000, modal: 42000 },
+                { nominal: '10GB / 30hr', price: 75000, modal: 70000 },
+                { nominal: '15GB / 30hr', price: 100000, modal: 93000 },
+                { nominal: '25GB / 30hr', price: 140000, modal: 130000 },
+            ]
+        },
+        XL: {
+            pulsa: [
+                { nominal: '5.000', price: 5300, modal: 5100 },
+                { nominal: '10.000', price: 10300, modal: 10000 },
+                { nominal: '15.000', price: 15300, modal: 14900 },
+                { nominal: '25.000', price: 25300, modal: 24800 },
+                { nominal: '50.000', price: 49900, modal: 49300 },
+                { nominal: '100.000', price: 99300, modal: 98600 },
+            ],
+            data: [
+                { nominal: '1GB / 30hr', price: 14000, modal: 13000 },
+                { nominal: '3GB / 30hr', price: 30000, modal: 28000 },
+                { nominal: '6GB / 30hr', price: 50000, modal: 47000 },
+                { nominal: '12GB / 30hr', price: 85000, modal: 80000 },
+                { nominal: '20GB / 30hr', price: 120000, modal: 112000 },
+                { nominal: '30GB / 30hr', price: 160000, modal: 150000 },
+            ]
+        },
+        Indosat: {
+            pulsa: [
+                { nominal: '5.000', price: 5250, modal: 5050 },
+                { nominal: '10.000', price: 10250, modal: 9950 },
+                { nominal: '15.000', price: 15250, modal: 14850 },
+                { nominal: '25.000', price: 25250, modal: 24750 },
+                { nominal: '50.000', price: 49850, modal: 49250 },
+                { nominal: '100.000', price: 99250, modal: 98550 },
+            ],
+            data: [
+                { nominal: '1GB / 30hr', price: 14500, modal: 13500 },
+                { nominal: '2GB / 30hr', price: 24000, modal: 22500 },
+                { nominal: '5GB / 30hr', price: 42000, modal: 39000 },
+                { nominal: '8GB / 30hr', price: 60000, modal: 56000 },
+                { nominal: '15GB / 30hr', price: 95000, modal: 88000 },
+                { nominal: 'Unlimited', price: 130000, modal: 120000 },
+            ]
+        },
+        Tri: {
+            pulsa: [
+                { nominal: '5.000', price: 5150, modal: 4950 },
+                { nominal: '10.000', price: 10150, modal: 9850 },
+                { nominal: '20.000', price: 20150, modal: 19700 },
+                { nominal: '25.000', price: 25150, modal: 24650 },
+                { nominal: '50.000', price: 49750, modal: 49150 },
+                { nominal: '100.000', price: 99150, modal: 98450 },
+            ],
+            data: [
+                { nominal: '1GB / 7hr', price: 8000, modal: 7000 },
+                { nominal: '3GB / 30hr', price: 22000, modal: 20000 },
+                { nominal: '6GB / 30hr', price: 40000, modal: 37000 },
+                { nominal: '10GB / 30hr', price: 65000, modal: 60000 },
+                { nominal: '20GB / 30hr', price: 105000, modal: 97000 },
+                { nominal: '30GB / 30hr', price: 145000, modal: 135000 },
+            ]
+        },
+        Smartfren: {
+            pulsa: [
+                { nominal: '5.000', price: 5300, modal: 5100 },
+                { nominal: '10.000', price: 10300, modal: 10000 },
+                { nominal: '15.000', price: 15300, modal: 14900 },
+                { nominal: '25.000', price: 25300, modal: 24800 },
+                { nominal: '50.000', price: 49900, modal: 49300 },
+                { nominal: '100.000', price: 99300, modal: 98600 },
+            ],
+            data: [
+                { nominal: '1GB / 30hr', price: 12000, modal: 11000 },
+                { nominal: '3GB / 30hr', price: 25000, modal: 23000 },
+                { nominal: '5GB / 30hr', price: 38000, modal: 35000 },
+                { nominal: '10GB / 30hr', price: 60000, modal: 55000 },
+                { nominal: 'Unlimited', price: 85000, modal: 78000 },
+                { nominal: 'Unlimited Pro', price: 130000, modal: 120000 },
+            ]
+        }
+    };
+
+    // Token listrik
+    const listrikNominals = [
+        { nominal: '20.000', price: 21500, modal: 20500 },
+        { nominal: '50.000', price: 51500, modal: 50500 },
+        { nominal: '100.000', price: 101500, modal: 100500 },
+        { nominal: '200.000', price: 201500, modal: 200500 },
+        { nominal: '500.000', price: 501500, modal: 500500 },
+        { nominal: '1.000.000', price: 1001500, modal: 1000500 },
+    ];
+
+    // Prefix operator
+    const operatorPrefixes = {
+        'Telkomsel': ['0811','0812','0813','0821','0822','0823','0851','0852','0853'],
+        'XL': ['0817','0818','0819','0859','0877','0878'],
+        'Indosat': ['0814','0815','0816','0855','0856','0857','0858'],
+        'Tri': ['0895','0896','0897','0898','0899'],
+        'Smartfren': ['0881','0882','0883','0884','0885','0886','0887','0888','0889'],
+    };
+
+    // State aplikasi
+    let state = {
+        currentPage: 'home',
+        currentUser: null,
+        currentService: 'pulsa',
+        selectedNominal: null,
+        detectedOperator: null,
+    };
+
+    // =====================================================
+    // INISIALISASI DATA (localStorage)
+    // =====================================================
+
+    function initData() {
+        // Inisialisasi pricing jika belum ada
+        if (!localStorage.getItem('pulsaPricing')) {
+            localStorage.setItem('pulsaPricing', JSON.stringify(defaultPricing));
+        }
+        // Inisialisasi users jika belum ada
+        if (!localStorage.getItem('pulsaUsers')) {
+            const defaultUsers = [
+                { username: 'admin', name: 'Administrator', phone: '081234567890', password: 'admin123', role: 'admin', balance: 1000000 },
+                { username: 'demo', name: 'User Demo', phone: '081298765432', password: 'demo123', role: 'user', balance: 200000 },
+            ];
+            localStorage.setItem('pulsaUsers', JSON.stringify(defaultUsers));
+        }
+        // Inisialisasi transaksi jika belum ada
+        if (!localStorage.getItem('pulsaTransactions')) {
+            localStorage.setItem('pulsaTransactions', JSON.stringify([]));
+        }
+        // Cek session login
+        const savedUser = localStorage.getItem('pulsaCurrentUser');
+        if (savedUser) {
+            state.currentUser = JSON.parse(savedUser);
+        }
+    }
+
+    function getUsers() { return JSON.parse(localStorage.getItem('pulsaUsers') || '[]'); }
+    function setUsers(users) { localStorage.setItem('pulsaUsers', JSON.stringify(users)); }
+    function getTransactions() { return JSON.parse(localStorage.getItem('pulsaTransactions') || '[]'); }
+    function setTransactions(tx) { localStorage.setItem('pulsaTransactions', JSON.stringify(tx)); }
+    function getPricing() { return JSON.parse(localStorage.getItem('pulsaPricing') || '{}'); }
+    function setPricing(p) { localStorage.setItem('pulsaPricing', JSON.stringify(p)); }
+    function formatRp(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
+
+    // =====================================================
+    // NAVIGASI
+    // =====================================================
+
+    function navigateTo(page) {
+        // Guard: halaman yang butuh login
+        if ((page === 'dashboard') && !state.currentUser) {
+            showToast('Silakan login terlebih dahulu', 'error');
+            page = 'login';
+        }
+        if (page === 'admin' && (!state.currentUser || state.currentUser.role !== 'admin')) {
+            showToast('Akses ditolak. Hanya admin yang bisa mengakses.', 'error');
+            return;
+        }
+
+        state.currentPage = page;
+
+        // Sembunyikan semua halaman
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+        // Tampilkan halaman tujuan
+        const target = document.getElementById('page-' + page);
+        if (target) target.classList.add('active');
+
+        // Update tab aktif di navbar
+        document.querySelectorAll('.tab-btn').forEach(t => {
+            t.classList.remove('active');
+            if (t.dataset.page === page) t.classList.add('active');
+        });
+
+        // Scroll ke atas
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Render konten spesifik halaman
+        if (page === 'transaksi') renderNominals();
+        if (page === 'dashboard') renderDashboard();
+        if (page === 'admin') renderAdmin();
+    }
+
+    // =====================================================
+    // AUTH
+    // =====================================================
+
+    function updateAuthUI() {
+        const isAuth = !!state.currentUser;
+        const isAdmin = isAuth && state.currentUser.role === 'admin';
+
+        // Navbar desktop
+        document.getElementById('navGuest').style.display = isAuth ? 'none' : 'block';
+        document.getElementById('navUser').style.display = isAuth ? 'flex' : 'none';
+        document.getElementById('navBalance').style.display = isAuth ? 'flex' : 'none';
+
+        // Navbar auth-only & admin-only
+        document.querySelectorAll('.auth-only').forEach(el => {
+            el.style.display = isAuth ? (el.tagName === 'BUTTON' ? '' : 'flex') : 'none';
+        });
+        document.querySelectorAll('.admin-only').forEach(el => {
+            el.style.display = isAdmin ? (el.tagName === 'BUTTON' ? '' : 'flex') : 'none';
+        });
+
+        // Mobile menu
+        document.querySelectorAll('[data-mobile-auth]').forEach(el => {
+            el.style.display = isAuth ? '' : 'none';
+        });
+        document.querySelectorAll('[data-mobile-guest]').forEach(el => {
+            el.style.display = isAuth ? 'none' : '';
+        });
+
+        if (isAuth) {
+            document.getElementById('navUsername').textContent = state.currentUser.username;
+            document.getElementById('navBalanceAmt').textContent = formatRp(state.currentUser.balance);
+        }
+    }
+
+    function login() {
+        const username = document.getElementById('loginUsername').value.trim();
+        const password = document.getElementById('loginPassword').value;
+
+        if (!username || !password) {
+            showToast('Username dan password harus diisi', 'error');
+            return;
+        }
+
+        const users = getUsers();
+        const user = users.find(u => u.username === username && u.password === password);
+
+        if (!user) {
+            showToast('Username atau password salah', 'error');
+            return;
+        }
+
+        state.currentUser = user;
+        localStorage.setItem('pulsaCurrentUser', JSON.stringify(user));
+        updateAuthUI();
+        showToast('Login berhasil. Selamat datang, ' + user.name + '!', 'success');
+
+        document.getElementById('loginUsername').value = '';
+        document.getElementById('loginPassword').value = '';
+
+        setTimeout(() => navigateTo(user.role === 'admin' ? 'admin' : 'dashboard'), 500);
+    }
+
+    function register() {
+        const name = document.getElementById('regName').value.trim();
+        const username = document.getElementById('regUsername').value.trim();
+        const phone = document.getElementById('regPhone').value.trim();
+        const password = document.getElementById('regPassword').value;
+        const confirm = document.getElementById('regConfirm').value;
+
+        if (!name || !username || !phone || !password || !confirm) {
+            showToast('Semua field harus diisi', 'error');
+            return;
+        }
+        if (username.length < 3) {
+            showToast('Username minimal 3 karakter', 'error');
+            return;
+        }
+        if (password.length < 6) {
+            showToast('Password minimal 6 karakter', 'error');
+            return;
+        }
+        if (password !== confirm) {
+            showToast('Konfirmasi password tidak cocok', 'error');
+            return;
+        }
+        if (!/^08\d{8,12}$/.test(phone)) {
+            showToast('Nomor HP tidak valid (contoh: 081234567890)', 'error');
+            return;
+        }
+
+        const users = getUsers();
+        if (users.find(u => u.username === username)) {
+            showToast('Username sudah digunakan', 'error');
+            return;
+        }
+
+        const newUser = {
+            username, name, phone, password,
+            role: 'user',
+            balance: 0,
+            createdAt: new Date().toISOString()
+        };
+        users.push(newUser);
+        setUsers(users);
+
+        // Bersihkan form
+        ['regName','regUsername','regPhone','regPassword','regConfirm'].forEach(id => {
+            document.getElementById(id).value = '';
+        });
+
+        showToast('Registrasi berhasil! Silakan login.', 'success');
+        setTimeout(() => navigateTo('login'), 800);
+    }
+
+    function logout() {
+        state.currentUser = null;
+        localStorage.removeItem('pulsaCurrentUser');
+        updateAuthUI();
+        showToast('Anda telah keluar', 'info');
+        navigateTo('home');
+    }
+
+    function togglePassword(inputId, btn) {
+        const input = document.getElementById(inputId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            btn.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        } else {
+            input.type = 'password';
+            btn.innerHTML = '<i class="fas fa-eye"></i>';
+        }
+    }
+
+    // =====================================================
+    // DETEKSI OPERATOR
+    // =====================================================
+
+    function detectOperator() {
+        const nomor = document.getElementById('inputNomor').value.replace(/\D/g, '');
+        const badge = document.getElementById('operatorBadge');
+        const info = document.getElementById('operatorInfo');
+
+        if (nomor.length < 4) {
+            badge.classList.add('hidden');
+            info.classList.add('hidden');
+            state.detectedOperator = null;
+            state.selectedNominal = null;
+            updateSummary();
+            renderNominals();
+            return;
+        }
+
+        // Cari operator berdasarkan 4 digit pertama
+        let found = null;
+        for (const [op, prefixes] of Object.entries(operatorPrefixes)) {
+            if (prefixes.some(p => nomor.startsWith(p))) {
+                found = op;
+                break;
+            }
+        }
+
+        state.detectedOperator = found;
+        state.selectedNominal = null;
+
+        if (found) {
+            badge.className = 'absolute right-3 top-1/2 -translate-y-1/2 px-3 py-1 rounded-lg text-xs font-bold op-' + found.toLowerCase().replace(/\s/g, '');
+            badge.textContent = found;
+            badge.classList.remove('hidden');
+            info.textContent = 'Operator ' + found + ' terdeteksi otomatis';
+            info.classList.remove('hidden');
+        } else {
+            badge.className = 'absolute right-3 top-1/2 -translate-y-1/2 px-3 py-1 rounded-lg text-xs font-bold op-unknown';
+            badge.textContent = 'Unknown';
+            badge.classList.remove('hidden');
+            info.textContent = 'Operator tidak dikenali. Pastikan nomor benar.';
+            info.classList.remove('hidden');
+        }
+
+        updateSummary();
+        renderNominals();
+    }
+
+    // =====================================================
+    // LAYANAN & NOMINAL
+    // =====================================================
+
+    function switchService(service) {
+        state.currentService = service;
+        state.selectedNominal = null;
+
+        // Update tab style
+        document.querySelectorAll('.service-tab').forEach(t => {
+            if (t.dataset.service === service) {
+                t.style.background = 'var(--primary)';
+                t.style.color = '#000';
+            } else {
+                t.style.background = 'rgba(255,255,255,0.05)';
+                t.style.color = 'var(--fg-muted)';
+            }
+        });
+
+        // Update label
+        const label = document.getElementById('labelNomor');
+        if (service === 'listrik') {
+            label.textContent = 'ID Pelanggan PLN';
+        } else {
+            label.textContent = 'Nomor Handphone';
+        }
+
+        // Hide operator badge untuk listrik
+        if (service === 'listrik') {
+            document.getElementById('operatorBadge').classList.add('hidden');
+            document.getElementById('operatorInfo').classList.add('hidden');
+        }
+
+        updateSummary();
+        renderNominals();
+    }
+
+    function renderNominals() {
+        const grid = document.getElementById('nominalGrid');
+        const container = document.getElementById('nominalContainer');
+        const service = state.currentService;
+        const operator = state.detectedOperator;
+
+        if (service === 'listrik') {
+            container.querySelector('label').textContent = 'Pilih Nominal Token';
+            grid.innerHTML = listrikNominals.map((item, i) => `
+                <div class="nominal-card ${state.selectedNominal === i ? 'selected' : ''}" onclick="selectNominal(${i})">
+                    <div class="text-sm font-bold mb-1">${item.nominal}</div>
+                    <div class="nominal-price text-sm font-semibold" style="color: var(--fg-muted);">${formatRp(item.price)}</div>
+                </div>
+            `).join('');
+            return;
+        }
+
+        if (!operator) {
+            container.querySelector('label').textContent = service === 'pulsa' ? 'Pilih Nominal Pulsa' : 'Pilih Paket Data';
+            grid.innerHTML = '<div class="col-span-3 text-center py-8" style="color: var(--fg-muted);"><i class="fas fa-info-circle mr-2"></i>Masukkan nomor HP terlebih dahulu untuk menampilkan nominal</div>';
+            return;
+        }
+
+        const pricing = getPricing();
+        const opData = pricing[operator];
+        if (!opData) return;
+
+        const items = service === 'pulsa' ? opData.pulsa : opData.data;
+        if (!items || items.length === 0) return;
+
+        container.querySelector('label').textContent = service === 'pulsa' ? 'Pilih Nominal Pulsa' : 'Pilih Paket Data';
+
+        grid.innerHTML = items.map((item, i) => `
+            <div class="nominal-card ${state.selectedNominal === i ? 'selected' : ''}" onclick="selectNominal(${i})">
+                <div class="text-sm font-bold mb-1">${item.nominal}</div>
+                <div class="nominal-price text-sm font-semibold" style="color: var(--fg-muted);">${formatRp(item.price)}</div>
+            </div>
+        `).join('');
+    }
+
+    function selectNominal(index) {
+        state.selectedNominal = index;
+        renderNominals();
+        updateSummary();
+    }
+
+    function updateSummary() {
+        const service = state.currentService;
+        const nomor = document.getElementById('inputNomor').value.replace(/\D/g, '');
+        const operator = state.detectedOperator;
+
+        // Nama layanan
+        const serviceNames = { pulsa: 'Pulsa Reguler', data: 'Paket Data', listrik: 'Token Listrik' };
+        document.getElementById('summaryService').textContent = serviceNames[service] || '-';
+
+        // Nomor tujuan
+        document.getElementById('summaryNumber').textContent = nomor || '-';
+
+        // Operator
+        if (service === 'listrik') {
+            document.getElementById('summaryOperator').textContent = 'PLN';
+        } else {
+            document.getElementById('summaryOperator').textContent = operator || '-';
+        }
+
+        // Nominal & total
+        let nominalText = '-';
+        let totalPrice = 0;
+
+        if (state.selectedNominal !== null) {
+            if (service === 'listrik') {
+                const item = listrikNominals[state.selectedNominal];
+                nominalText = item.nominal;
+                totalPrice = item.price;
+            } else if (operator) {
+                const pricing = getPricing();
+                const items = service === 'pulsa' ? pricing[operator]?.pulsa : pricing[operator]?.data;
+                if (items && items[state.selectedNominal]) {
+                    nominalText = items[state.selectedNominal].nominal;
+                    totalPrice = items[state.selectedNominal].price;
+                }
+            }
+        }
+
+        document.getElementById('summaryNominal').textContent = nominalText;
+        document.getElementById('summaryTotal').textContent = formatRp(totalPrice);
+
+        // Enable/disable tombol beli
+        const btn = document.getElementById('btnBeli');
+        const isValid = nomor.length >= 10 && state.selectedNominal !== null;
+        btn.disabled = !isValid;
+    }
+
+    // =====================================================
+    // TRANSAKSI
+    // =====================================================
+
+    function prosesTransaksi() {
+        if (!state.currentUser) {
+            showToast('Silakan login terlebih dahulu untuk bertransaksi', 'error');
+            navigateTo('login');
+            return;
+        }
+
+        const service = state.currentService;
+        const nomor = document.getElementById('inputNomor').value.replace(/\D/g, '');
+        const operator = service === 'listrik' ? 'PLN' : state.detectedOperator;
+
+        if (state.selectedNominal === null) return;
+
+        let nominalText, totalPrice;
+        if (service === 'listrik') {
+            const item = listrikNominals[state.selectedNominal];
+            nominalText = item.nominal;
+            totalPrice = item.price;
+        } else {
+            const pricing = getPricing();
+            const items = service === 'pulsa' ? pricing[operator]?.pulsa : pricing[operator]?.data;
+            if (!items || !items[state.selectedNominal]) return;
+            nominalText = items[state.selectedNominal].nominal;
+            totalPrice = items[state.selectedNominal].price;
+        }
+
+        // Cek saldo
+        if (state.currentUser.balance < totalPrice) {
+            showToast('Saldo tidak mencukupi. Silakan top up terlebih dahulu.', 'error');
+            return;
+        }
+
+        // Tampilkan modal pembayaran
+        showPaymentModal(service, nomor, operator, nominalText, totalPrice);
+    }
+
+    function showPaymentModal(service, nomor, operator, nominal, price) {
+        const content = document.getElementById('paymentContent');
+        const serviceNames = { pulsa: 'Pulsa Reguler', data: 'Paket Data', listrik: 'Token Listrik' };
+
+        content.innerHTML = `
+            <div class="space-y-3 mb-6">
+                <div class="flex justify-between text-sm">
+                    <span style="color: var(--fg-muted);">Layanan</span>
+                    <span class="font-medium">${serviceNames[service]}</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span style="color: var(--fg-muted);">Operator</span>
+                    <span class="font-medium">${operator}</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span style="color: var(--fg-muted);">Nomor Tujuan</span>
+                    <span class="font-medium">${nomor}</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span style="color: var(--fg-muted);">Nominal</span>
+                    <span class="font-medium">${nominal}</span>
+                </div>
+                <div class="flex justify-between text-sm pt-3" style="border-top: 1px dashed var(--border);">
+                    <span class="font-bold">Total Bayar</span>
+                    <span class="font-bold" style="color: var(--accent);">${formatRp(price)}</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span style="color: var(--fg-muted);">Saldo Anda</span>
+                    <span class="font-medium">${formatRp(state.currentUser.balance)}</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span style="color: var(--fg-muted);">Sisa Saldo</span>
+                    <span class="font-medium" style="color: var(--primary);">${formatRp(state.currentUser.balance - price)}</span>
+                </div>
+            </div>
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-3" style="color: var(--fg-muted);">Metode Pembayaran</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="pay-method nominal-card selected" data-method="saldo" onclick="selectPayMethod(this)">
+                        <i class="fas fa-wallet mb-1" style="color: var(--accent);"></i>
+                        <div class="text-xs font-bold">Saldo</div>
+                    </div>
+                    <div class="pay-method nominal-card" data-method="qris" onclick="selectPayMethod(this)">
+                        <i class="fas fa-qrcode mb-1" style="color: var(--primary);"></i>
+                        <div class="text-xs font-bold">QRIS</div>
+                    </div>
+                    <div class="pay-method nominal-card" data-method="va" onclick="selectPayMethod(this)">
+                        <i class="fas fa-university mb-1" style="color: var(--info);"></i>
+                        <div class="text-xs font-bold">VA Bank</div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-accent w-full py-4" id="btnPayConfirm" onclick="konfirmasiPembayaran('${service}','${nomor}','${operator}','${nominal}',${price})">
+                <i class="fas fa-check-circle mr-2"></i>Konfirmasi Pembayaran
+            </button>
+        `;
+
+        openModal('paymentModal');
+    }
+
+    function selectPayMethod(el) {
+        document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+        el.classList.add('selected');
+    }
+
+    function konfirmasiPembayaran(service, nomor, operator, nominal, price) {
+        const btn = document.getElementById('btnPayConfirm');
+        const selectedMethod = document.querySelector('.pay-method.selected');
+        const method = selectedMethod ? selectedMethod.dataset.method : 'saldo';
+
+        // Jika bukan saldo, simulasi pembayaran lain
+        if (method !== 'saldo') {
+            showToast('Pembayaran via ' + method.toUpperCase() + ' akan dialihkan ke gateway (simulasi)', 'info');
+            // Tetap proses pakai saldo untuk demo
+        }
+
+        // Loading state
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner mr-2"></span>Memproses transaksi...';
+
+        // Simulasi delay API
+        setTimeout(() => {
+            // Potong saldo
+            const users = getUsers();
+            const userIdx = users.findIndex(u => u.username === state.currentUser.username);
+            if (userIdx === -1) {
+                showToast('Error: User tidak ditemukan', 'error');
+                closeModal('paymentModal');
+                return;
+            }
+
+            // Simulasi: 90% berhasil, 10% gagal
+            const isSuccess = Math.random() > 0.1;
+
+            if (isSuccess) {
+                users[userIdx].balance -= price;
+                setUsers(users);
+                state.currentUser = users[userIdx];
+                localStorage.setItem('pulsaCurrentUser', JSON.stringify(users[userIdx]));
+                updateAuthUI();
+            }
+
+            // Buat record transaksi
+            const tx = {
+                id: 'TX' + Date.now().toString(36).toUpperCase(),
+                username: state.currentUser.username,
+                date: new Date().toISOString(),
+                service: service,
+                operator: operator,
+                number: nomor,
+                nominal: nominal,
+                price: price,
+                method: method,
+                status: isSuccess ? 'sukses' : 'gagal',
+                note: isSuccess ? 'Transaksi berhasil diproses' : 'Gagal: Timeout dari provider',
+            };
+
+            const transactions = getTransactions();
+            transactions.unshift(tx);
+            setTransactions(transactions);
+
+            // Tampilkan hasil
+            showPaymentResult(tx);
+        }, 2000 + Math.random() * 1500);
+    }
+
+    function showPaymentResult(tx) {
+        const content = document.getElementById('paymentContent');
+        const isSukses = tx.status === 'sukses';
+
+        content.innerHTML = `
+            <div class="text-center py-4">
+                <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4" style="background: ${isSukses ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)'};">
+                    <i class="fas ${isSukses ? 'fa-check-circle' : 'fa-times-circle'} text-4xl" style="color: ${isSukses ? 'var(--success)' : 'var(--danger)'};"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2" style="color: ${isSukses ? 'var(--success)' : 'var(--danger)'};">
+                    ${isSukses ? 'Transaksi Berhasil' : 'Transaksi Gagal'}
+                </h3>
+                <p class="text-sm mb-6" style="color: var(--fg-muted);">${tx.note}</p>
+                <div class="text-left glass-card p-4 space-y-2 text-sm mb-6" style="background: rgba(0,0,0,0.3);">
+                    <div class="flex justify-between">
+                        <span style="color: var(--fg-muted);">ID Transaksi</span>
+                        <span class="font-mono font-semibold">${tx.id}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span style="color: var(--fg-muted);">Layanan</span>
+                        <span>${tx.operator} - ${tx.nominal}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span style="color: var(--fg-muted);">Nomor Tujuan</span>
+                        <span>${tx.number}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span style="color: var(--fg-muted);">Total Bayar</span>
+                        <span class="font-bold" style="color: var(--accent);">${formatRp(tx.price)}</span>
+                    </div>
+                    ${isSukses ? `<div class="flex justify-between pt-2" style="border-top: 1px dashed var(--border);">
+                        <span style="color: var(--fg-muted);">Sisa Saldo</span>
+                        <span style="color: var(--primary);">${formatRp(state.currentUser.balance)}</span>
+                    </div>` : ''}
+                </div>
+                <div class="flex gap-3">
+                    <button class="btn-outline flex-1 py-3" onclick="closeModal('paymentModal');navigateTo('dashboard')">
+                        <i class="fas fa-list mr-1"></i>Riwayat
+                    </button>
+                    <button class="btn-primary flex-1 py-3" onclick="closeModal('paymentModal');resetTransaksi()">
+                        <i class="fas fa-redo mr-1"></i>Transaksi Baru
+                    </button>
+                </div>
+            </div>
+        `;
+
+        showToast(isSukses ? 'Transaksi berhasil!' : 'Transaksi gagal. Saldo dikembalikan.', isSukses ? 'success' : 'error');
+    }
+
+    function resetTransaksi() {
+        document.getElementById('inputNomor').value = '';
+        state.selectedNominal = null;
+        state.detectedOperator = null;
+        document.getElementById('operatorBadge').classList.add('hidden');
+        document.getElementById('operatorInfo').classList.add('hidden');
+        updateSummary();
+        renderNominals();
+    }
+
+    // =====================================================
+    // TOP UP SALDO
+    // =====================================================
+
+    function showTopUpModal() {
+        document.getElementById('topUpCurrent').textContent = formatRp(state.currentUser.balance);
+        document.getElementById('topUpAmount').value = '';
+        // Reset selected method
+        document.querySelectorAll('.topup-method').forEach((m, i) => {
+            m.classList.toggle('selected', i === 0);
+        });
+        openModal('topUpModal');
+    }
+
+    function selectTopUpMethod(el) {
+        document.querySelectorAll('.topup-method').forEach(m => m.classList.remove('selected'));
+        el.classList.add('selected');
+    }
+
+    function prosesTopUp() {
+        const amount = parseInt(document.getElementById('topUpAmount').value);
+        if (!amount || amount < 10000) {
+            showToast('Minimal top up Rp 10.000', 'error');
+            return;
+        }
+
+        const method = document.querySelector('.topup-method.selected')?.dataset.method || 'bca';
+
+        // Simulasi proses top up (langsung berhasil untuk demo)
+        const users = getUsers();
+        const idx = users.findIndex(u => u.username === state.currentUser.username);
+        if (idx === -1) return;
+
+        users[idx].balance += amount;
+        setUsers(users);
+        state.currentUser = users[idx];
+        localStorage.setItem('pulsaCurrentUser', JSON.stringify(users[idx]));
+        updateAuthUI();
+
+        closeModal('topUpModal');
+        showToast('Top up ' + formatRp(amount) + ' via ' + method.toUpperCase() + ' berhasil!', 'success');
+
+        // Render ulang dashboard jika aktif
+        if (state.currentPage === 'dashboard') renderDashboard();
+    }
+
+    // =====================================================
+    // DASHBOARD
+    // =====================================================
+
+    function renderDashboard() {
+        if (!state.currentUser) return;
+
+        document.getElementById('dashGreeting').textContent = state.currentUser.name;
+        document.getElementById('dashSaldo').textContent = formatRp(state.currentUser.balance);
+
+        const allTx = getTransactions().filter(t => t.username === state.currentUser.username);
+        const sukses = allTx.filter(t => t.status === 'sukses').length;
+        const gagal = allTx.filter(t => t.status === 'gagal').length;
+
+        document.getElementById('dashTotalTx').textContent = allTx.length;
+        document.getElementById('dashSukses').textContent = sukses;
+        document.getElementById('dashGagal').textContent = gagal;
+
+        renderDashboardHistory();
+    }
+
+    function renderDashboardHistory() {
+        const filter = document.getElementById('dashFilter').value;
+        let txs = getTransactions().filter(t => t.username === state.currentUser.username);
+
+        if (filter !== 'all') txs = txs.filter(t => t.status === filter);
+
+        const body = document.getElementById('dashHistoryBody');
+
+        if (txs.length === 0) {
+            body.innerHTML = '<tr><td colspan="6" class="text-center py-8" style="color: var(--fg-muted);">Tidak ada transaksi</td></tr>';
+            return;
+        }
+
+        body.innerHTML = txs.slice(0, 20).map(tx => {
+            const statusBadge = getStatusBadge(tx.status);
+            const serviceNames = { pulsa: 'Pulsa', data: 'Paket Data', listrik: 'Token Listrik' };
+            const date = new Date(tx.date);
+            const dateStr = date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+            return `<tr>
+                <td class="text-sm">${dateStr}</td>
+                <td><span class="text-sm font-medium">${serviceNames[tx.service] || tx.service}</span></td>
+                <td class="font-mono text-sm">${tx.number}</td>
+                <td class="text-sm">${tx.nominal}</td>
+                <td class="text-sm font-semibold">${formatRp(tx.price)}</td>
+                <td>${statusBadge}</td>
+            </tr>`;
+        }).join('');
+    }
+
+    function getStatusBadge(status) {
+        const styles = {
+            sukses: 'background: rgba(34,197,94,0.15); color: #86EFAC; border: 1px solid rgba(34,197,94,0.3);',
+            gagal: 'background: rgba(239,68,68,0.15); color: #FCA5A5; border: 1px solid rgba(239,68,68,0.3);',
+            pending: 'background: rgba(245,166,35,0.15); color: #FDE68A; border: 1px solid rgba(245,166,35,0.3);',
+        };
+        const icons = { sukses: 'fa-check-circle', gagal: 'fa-times-circle', pending: 'fa-clock' };
+        const labels = { sukses: 'Berhasil', gagal: 'Gagal', pending: 'Pending' };
+        return `<span class="badge" style="${styles[status] || styles.pending}"><i class="fas ${icons[status] || icons.pending} text-xs"></i>${labels[status] || status}</span>`;
+    }
+
+    // =====================================================
+    // ADMIN PANEL
+    // =====================================================
+
+    function renderAdmin() {
+        const users = getUsers();
+        const txs = getTransactions();
+
+        // Stats
+        document.getElementById('adminTotalUser').textContent = users.filter(u => u.role === 'user').length;
+        document.getElementById('adminTotalTx').textContent = txs.length;
+        const revenue = txs.filter(t => t.status === 'sukses').reduce((s, t) => s + t.price, 0);
+        document.getElementById('adminRevenue').textContent = formatRp(revenue);
+        const sukses = txs.filter(t => t.status === 'sukses').length;
+        const rate = txs.length > 0 ? Math.round((sukses / txs.length) * 100) : 0;
+        document.getElementById('adminSuccessRate').textContent = rate + '%';
+
+        renderAdminTransactions();
+        renderAdminUsers();
+        renderPricingTable();
+    }
+
+    function switchAdminTab(tab) {
+        document.querySelectorAll('.admin-tab').forEach(t => {
+            if (t.dataset.atab === tab) {
+                t.style.background = 'var(--primary)';
+                t.style.color = '#000';
+            } else {
+                t.style.background = 'rgba(255,255,255,0.05)';
+                t.style.color = 'var(--fg-muted)';
+            }
+        });
+        document.querySelectorAll('.admin-panel').forEach(p => p.classList.add('hidden'));
+        document.getElementById('adminPanel-' + tab)?.classList.remove('hidden');
+
+        if (tab === 'transactions') renderAdminTransactions();
+        if (tab === 'users') renderAdminUsers();
+        if (tab === 'pricing') renderPricingTable();
+    }
+
+    function renderAdminTransactions() {
+        const txs = getTransactions();
+        const body = document.getElementById('adminTxBody');
+
+        if (txs.length === 0) {
+            body.innerHTML = '<tr><td colspan="9" class="text-center py-8" style="color: var(--fg-muted);">Belum ada transaksi</td></tr>';
+            return;
+        }
+
+        body.innerHTML = txs.slice(0, 50).map(tx => {
+            const date = new Date(tx.date);
+            const dateStr = date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) + ' ' + date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+            return `<tr>
+                <td class="font-mono text-xs">${tx.id}</td>
+                <td class="text-sm">${tx.username}</td>
+                <td class="text-xs">${dateStr}</td>
+                <td class="text-sm">${tx.service}</td>
+                <td class="font-mono text-sm">${tx.number}</td>
+                <td class="text-sm">${tx.nominal}</td>
+                <td class="text-sm font-semibold">${formatRp(tx.price)}</td>
+                <td>${getStatusBadge(tx.status)}</td>
+                <td>
+                    ${tx.status === 'pending' ? `
+                        <button class="text-xs px-2 py-1 rounded" style="background: rgba(34,197,94,0.15); color: #86EFAC;" onclick="adminUpdateTx('${tx.id}','sukses')">Approve</button>
+                        <button class="text-xs px-2 py-1 rounded ml-1" style="background: rgba(239,68,68,0.15); color: #FCA5A5;" onclick="adminUpdateTx('${tx.id}','gagal')">Reject</button>
+                    ` : '-'}
+                </td>
+            </tr>`;
+        }).join('');
+    }
+
+    function adminUpdateTx(txId, newStatus) {
+        const txs = getTransactions();
+        const idx = txs.findIndex(t => t.id === txId);
+        if (idx === -1) return;
+
+        txs[idx].status = newStatus;
+        txs[idx].note = newStatus === 'sukses' ? 'Approved by admin' : 'Rejected by admin';
+        setTransactions(txs);
+        renderAdmin();
+        showToast('Status transaksi ' + txId + ' diubah menjadi ' + newStatus, 'success');
+    }
+
+    function renderAdminUsers() {
+        const users = getUsers();
+        const body = document.getElementById('adminUserBody');
+
+        if (users.length === 0) {
+            body.innerHTML = '<tr><td colspan="6" class="text-center py-8" style="color: var(--fg-muted);">Tidak ada user</td></tr>';
+            return;
+        }
+
+        body.innerHTML = users.map(u => {
+            const roleBadge = u.role === 'admin'
+                ? '<span class="badge" style="background: rgba(245,166,35,0.15); color: #FDE68A; border: 1px solid rgba(245,166,35,0.3);">Admin</span>'
+                : '<span class="badge" style="background: rgba(6,182,212,0.15); color: #67E8F9; border: 1px solid rgba(6,182,212,0.3);">User</span>';
+
+            return `<tr>
+                <td class="font-semibold text-sm">${u.username}</td>
+                <td class="text-sm">${u.name}</td>
+                <td class="font-mono text-sm">${u.phone}</td>
+                <td class="text-sm font-semibold" style="color: var(--accent);">${formatRp(u.balance)}</td>
+                <td>${roleBadge}</td>
+                <td>
+                    ${u.role !== 'admin' ? `
+                        <button class="text-xs px-2 py-1 rounded" style="background: rgba(245,166,35,0.15); color: #FDE68A;" onclick="adminAdjustBalance('${u.username}')">Saldo</button>
+                        <button class="text-xs px-2 py-1 rounded ml-1" style="background: rgba(239,68,68,0.15); color: #FCA5A5;" onclick="adminDeleteUser('${u.username}')">Hapus</button>
+                    ` : '-'}
+                </td>
+            </tr>`;
+        }).join('');
+    }
+
+    function adminAdjustBalance(username) {
+        const amount = prompt('Masukkan jumlah saldo (positif = tambah, negatif = kurang):');
+        if (amount === null) return;
+        const val = parseInt(amount);
+        if (isNaN(val)) {
+            showToast('Jumlah tidak valid', 'error');
+            return;
+        }
+
+        const users = getUsers();
+        const idx = users.findIndex(u => u.username === username);
+        if (idx === -1) return;
+
+        users[idx].balance = Math.max(0, users[idx].balance + val);
+        setUsers(users);
+        renderAdmin();
+        showToast('Saldo ' + username + ' diubah ' + (val >= 0 ? '+' : '') + formatRp(val), 'success');
+    }
+
+    function adminDeleteUser(username) {
+        const users = getUsers();
+        const filtered = users.filter(u => u.username !== username);
+        if (filtered.length === users.length) return;
+        setUsers(filtered);
+        renderAdmin();
+        showToast('User ' + username + ' telah dihapus', 'success');
+    }
+
+    function renderPricingTable() {
+        const operator = document.getElementById('priceOperator').value;
+        const pricing = getPricing();
+        const data = pricing[operator];
+        const body = document.getElementById('adminPriceBody');
+
+        if (!data || !data.pulsa) {
+            body.innerHTML = '<tr><td colspan="5" class="text-center py-8" style="color: var(--fg-muted);">Data tidak tersedia</td></tr>';
+            return;
+        }
+
+        body.innerHTML = data.pulsa.map((item, i) => {
+            const margin = item.price - item.modal;
+            return `<tr>
+                <td class="font-semibold">${item.nominal}</td>
+                <td class="font-semibold" style="color: var(--accent);">${formatRp(item.price)}</td>
+                <td class="text-sm" style="color: var(--fg-muted);">${formatRp(item.modal)}</td>
+                <td class="text-sm" style="color: var(--primary);">${formatRp(margin)}</td>
+                <td>
+                    <button class="text-xs px-3 py-1.5 rounded-lg" style="background: rgba(6,182,212,0.15); color: #67E8F9;" onclick="editPrice('${operator}','pulsa',${i})">
+                        <i class="fas fa-edit mr-1"></i>Edit
+                    </button>
+                </td>
+            </tr>`;
+        }).join('');
+    }
+
+    function editPrice(operator, type, index) {
+        const pricing = getPricing();
+        const item = pricing[operator][type][index];
+        const content = document.getElementById('editPriceContent');
+
+        content.innerHTML = `
+            <div class="mb-4">
+                <div class="text-sm mb-1" style="color: var(--fg-muted);">Operator</div>
+                <div class="font-bold">${operator}</div>
+            </div>
+            <div class="mb-4">
+                <div class="text-sm mb-1" style="color: var(--fg-muted);">Nominal</div>
+                <div class="font-bold">${item.nominal}</div>
+            </div>
+            <div class="mb-5">
+                <label class="block text-sm font-medium mb-2" style="color: var(--fg-muted);">Harga Jual (Rp)</label>
+                <input type="number" id="editPriceValue" class="input-field" value="${item.price}">
+            </div>
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-2" style="color: var(--fg-muted);">Harga Modal (Rp)</label>
+                <input type="number" id="editModalValue" class="input-field" value="${item.modal}">
+            </div>
+            <div class="flex gap-3">
+                <button class="btn-outline flex-1 py-3" onclick="closeModal('editPriceModal')">Batal</button>
+                <button class="btn-primary flex-1 py-3" onclick="savePrice('${operator}','${type}',${index})">Simpan</button>
+            </div>
+        `;
+
+        openModal('editPriceModal');
+    }
+
+    function savePrice(operator, type, index) {
+        const newPrice = parseInt(document.getElementById('editPriceValue').value);
+        const newModal = parseInt(document.getElementById('editModalValue').value);
+
+        if (isNaN(newPrice) || isNaN(newModal) || newPrice <= 0 || newModal <= 0) {
+            showToast('Harga harus berupa angka positif', 'error');
+            return;
+        }
+        if (newPrice <= newModal) {
+            showToast('Harga jual harus lebih besar dari harga modal', 'error');
+            return;
+        }
+
+        const pricing = getPricing();
+        pricing[operator][type][index].price = newPrice;
+        pricing[operator][type][index].modal = newModal;
+        setPricing(pricing);
+
+        closeModal('editPriceModal');
+        renderPricingTable();
+        showToast('Harga berhasil diperbarui', 'success');
+    }
+
+    // =====================================================
+    // MODAL & TOAST
+    // =====================================================
+
+    function openModal(id) {
+        document.getElementById(id).classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    // Tutup modal saat klik overlay
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal(modal.id);
+        });
+    });
+
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toastContainer');
+        const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
+        const toast = document.createElement('div');
+        toast.className = 'toast ' + type;
+        toast.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i><span>${message}</span>`;
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            toast.classList.add('leaving');
+            setTimeout(() => toast.remove(), 300);
+        }, 3500);
+    }
+
+    // =====================================================
+    // MOBILE MENU
+    // =====================================================
+
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('mobileOverlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+    }
+
+    // =====================================================
+    // KEYBOARD: Enter pada form login/register
+    // =====================================================
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter') return;
+        if (state.currentPage === 'login' && (document.activeElement.id === 'loginUsername' || document.activeElement.id === 'loginPassword')) {
+            login();
+        }
+        if (state.currentPage === 'register') {
+            const regFields = ['regName','regUsername','regPhone','regPassword','regConfirm'];
+            if (regFields.includes(document.activeElement.id)) {
+                register();
+            }
+        }
+    });
+
+    // =====================================================
+    // INIT
+    // =====================================================
+
+    initData();
+    updateAuthUI();
+    </script>
+</body>
+</html>
